@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class DemoApplication {
 
 	public static void main(String[] args) {
+		System.out.println("=== DIAGNOSTIC: SPRING_DATASOURCE_URL is: " + System.getenv("SPRING_DATASOURCE_URL") + " ===");
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
