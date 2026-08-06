@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "tasks")
@@ -21,6 +23,7 @@ public class Task {
     @Column(nullable = false)
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -41,11 +44,33 @@ public class Task {
     @JoinColumn(name = "assignee_id")
     private User assignee;
 
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     public enum Priority {
         LOW, MEDIUM, HIGH
     }
 
     public enum Status {
-        TODO, IN_PROGRESS, DONE
+        TODO, IN_PROGRESS, REVIEW, DONE
     }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "task_tags", joinColumns = @JoinColumn(name = "task_id"))
+    @Column(name = "tag")
+    @Builder.Default
+    private Set<String> tags = new HashSet<>();
 }

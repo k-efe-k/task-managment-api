@@ -27,8 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-            ) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
 
@@ -47,17 +46,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             userRepository.findByEmail(email).ifPresent(user -> {
                 if (jwtService.isTokenValid(token, user)) {
 
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    user,
-                                    null,
-                                    user.getAuthorities()
-                            );
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            user,
+                            null,
+                            user.getAuthorities());
 
                     authToken.setDetails(
                             new WebAuthenticationDetailsSource()
-                                    .buildDetails(request)
-                    );
+                                    .buildDetails(request));
 
                     SecurityContextHolder.getContext()
                             .setAuthentication(authToken);

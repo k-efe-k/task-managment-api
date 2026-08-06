@@ -34,6 +34,15 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Builder.Default
+    private Boolean enabled = false;
+
+    private String verificationToken;
+
+    private String passwordResetToken;
+
+    private java.time.LocalDateTime passwordResetExpiry;
+
     public enum Role {
         ADMIN, MEMBER
     }
@@ -56,6 +65,6 @@ public class User implements UserDetails {
     public boolean isCredentialsNonExpired() { return true; }
 
     @Override
-    public boolean isEnabled() { return true; }
+    public boolean isEnabled() { return Boolean.TRUE.equals(enabled); }
 
 }

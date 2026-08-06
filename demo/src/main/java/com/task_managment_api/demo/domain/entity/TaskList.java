@@ -28,7 +28,7 @@ public class TaskList {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToMany(mappedBy = "taskLists", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Task> tasks = new ArrayList<>();
 
