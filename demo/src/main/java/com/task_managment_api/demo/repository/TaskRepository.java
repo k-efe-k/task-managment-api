@@ -11,4 +11,6 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByAssignee(User assignee);
     List<Task> findByAssigneeId(Long assigneeId);
+    List<Task> findByTeamId(Long teamId);
+    List<Task> findByTeamNullAndAssignee(User assignee);
 }

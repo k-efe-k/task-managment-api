@@ -29,4 +29,8 @@ public class TaskCreateRequest {
     private Long taskListId;
 
     private Set<String> tags;
+
+    private Long teamId;
+
+    private Long assigneeId;
 }

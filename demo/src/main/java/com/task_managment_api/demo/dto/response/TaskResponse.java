@@ -28,6 +28,9 @@ public class TaskResponse {
     private LocalDateTime dueDate;
     private Integer position;
     private Long assigneeId;
+    private String assigneeName;
+    private Long teamId;
+    private String teamName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Set<String> tags;
@@ -45,9 +48,12 @@ public class TaskResponse {
                 .dueDate(task.getDueDate())
                 .position(task.getPosition())
                 .assigneeId(task.getAssignee() != null ? task.getAssignee().getId() : null)
+                .assigneeName(task.getAssignee() != null ? task.getAssignee().getFullName() : null)
+                .teamId(task.getTeam() != null ? task.getTeam().getId() : null)
+                .teamName(task.getTeam() != null ? task.getTeam().getName() : null)
                 .createdAt(task.getCreatedAt())
                 .updatedAt(task.getUpdatedAt())
-                .tags(task.getTags() != null ? new HashSet<>(task.getTags()) : new HashSet<>())
+                .tags(task.getTags() != null ? new java.util.HashSet<>(task.getTags()) : new java.util.HashSet<>())
                 .build();
     }
 }
